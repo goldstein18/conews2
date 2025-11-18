@@ -1,0 +1,203 @@
+# CodeRabbit Configuration for Frontend Eventos
+# Next.js 15 + TypeScript + Shadcn/UI + Apollo Client + Zustand
+
+language: "en-US"
+
+# Review settings
+reviews:
+  # Review all files by default
+  request_changes: ask
+  auto_reply: true
+  drafts: false
+  
+  # High-level review preferences
+  high_level_summary: true
+  poem: false
+  review_status: true
+  collapse_empty_sections: true
+  
+  # Path-based settings
+  path_instructions:
+    - path: "app/**"
+      instructions: |
+        This is a Next.js 15 App Router application. Ensure:
+        - All pages follow the new App Router conventions
+        - Use server components by default, client components only when needed
+        - Follow the modular dashboard architecture patterns
+        - Implement proper loading.tsx and error.tsx files
+        - Use Tailwind CSS with shadcn/ui components
+    
+    - path: "app/dashboard/**"
+      instructions: |
+        Dashboard modules MUST follow the mandatory architecture pattern:
+        - page.tsx should be orchestrator only (~50-150 lines)
+        - Break into components/, hooks/, and utils/ directories
+        - Use cursor-based pagination (first/after), never numeric
+        - Implement skeleton loading states, not simple spinners
+        - All state management must use Zustand stores
+        - Follow GraphQL BFF pattern via /api/graphql
+    
+    - path: "components/ui/**"
+      instructions: |
+        These are shadcn/ui components. Ensure:
+        - Follow shadcn/ui patterns and conventions
+        - Use Tailwind CSS classes appropriately
+        - Maintain accessibility standards
+        - Use proper TypeScript interfaces
+        - Follow the design system patterns
+    
+    - path: "lib/graphql/**"
+      instructions: |
+        GraphQL operations must:
+        - Use proper Apollo Client patterns
+        - Follow BFF security architecture (never direct backend)
+        - Use ID! type for entity identifiers
+        - Implement proper error handling
+        - Use cursor-based pagination patterns
+    
+    - path: "store/**"
+      instructions: |
+        Zustand stores are MANDATORY for all React state management:
+        - Use TypeScript interfaces for state and actions
+        - Implement proper cleanup for memory-sensitive data
+        - Use persistence when data needs to survive refreshes
+        - Never use useState for global/cross-component state
+    
+    - path: "app/**/create/**"
+      instructions: |
+        Creation wizards should follow the 2-step pattern:
+        - Step 1: Basic form with essential fields, creates entity with placeholder
+        - Step 2: Advanced form with image upload and optional fields
+        - Use ImageUploadAdvanced component for all image uploads
+        - Implement proper loading states with spinners on buttons
+        - Handle temporary image storage before S3 upload
+
+# Code quality rules
+rules:
+  # TypeScript specific
+  - "Ensure strict TypeScript usage - no 'any' types without justification"
+  - "Use proper TypeScript interfaces and types"
+  - "Ensure all props are properly typed"
+  
+  # React/Next.js specific
+  - "Use server components by default, client components only when needed"
+  - "Ensure 'use client' directive is only used when necessary"
+  - "Follow Next.js 15 App Router conventions"
+  - "Use proper file naming conventions (lowercase with hyphens)"
+  
+  # State Management (Critical)
+  - "ALL React state management MUST use Zustand stores - never useState for global state"
+  - "Never use Context API or Redux for complex state management"
+  - "Local state with useState only for component-specific UI state"
+  
+  # Security Requirements (Critical)
+  - "ALL GraphQL requests MUST use BFF pattern via /api/graphql endpoint"
+  - "NEVER expose GraphQL backend directly to client"
+  - "Use httpOnly cookies for authentication, never localStorage"
+  - "All inputs must be validated with Zod schemas"
+  
+  # Architecture Requirements
+  - "Dashboard modules must follow the mandatory modular structure"
+  - "Use cursor-based pagination (first/after), never numeric (1,2,3...)"
+  - "Implement skeleton loading states, not simple spinners"
+  - "Break large files into smaller, focused components"
+  
+  # UI/UX Requirements
+  - "Use Tailwind CSS with shadcn/ui components"
+  - "Ensure proper accessibility with ARIA labels"
+  - "Implement responsive design patterns"
+  - "Use Lucide React icons consistently"
+  
+  # Code Style
+  - "Follow consistent import order (React, Next.js, external, internal)"
+  - "Use descriptive variable and function names"
+  - "Keep functions and components focused and small"
+  - "Use proper error handling and user feedback"
+
+# File patterns to focus on
+focus:
+  - "**/*.ts"
+  - "**/*.tsx"
+  - "**/*.js"
+  - "**/*.jsx"
+  - "**/package.json"
+  - "**/tsconfig.json"
+  - "**/eslint.config.mjs"
+
+# Files to ignore
+ignore:
+  - "node_modules/**"
+  - ".next/**"
+  - "out/**"
+  - "build/**"
+  - "coverage/**"
+  - "*.log"
+  - ".env*"
+  - "*.tsbuildinfo"
+  - "next-env.d.ts"
+
+# Custom checks for this project
+checks:
+  # Security checks
+  - name: "BFF Pattern Enforcement"
+    pattern: "fetch.*graphql|apollo.*uri"
+    message: "Ensure GraphQL requests use BFF pattern via /api/graphql"
+    
+  - name: "State Management Check"
+    pattern: "useState.*\\[.*\\].*="
+    message: "Consider if this state should use Zustand instead of useState for global/shared state"
+    
+  - name: "Loading State Pattern"
+    pattern: "Loading|Spinner|loading"
+    message: "Ensure skeleton loading states are used instead of simple spinners for content areas"
+    
+  - name: "Pagination Pattern"
+    pattern: "page.*\\d+|offset.*\\d+"
+    message: "Use cursor-based pagination (first/after) instead of numeric pagination"
+
+# Review focus areas
+focus_areas:
+  - "Security vulnerabilities and best practices"
+  - "TypeScript type safety and strict mode compliance"
+  - "Next.js 15 App Router best practices"
+  - "Performance optimization opportunities"
+  - "Accessibility improvements"
+  - "Code organization and architecture adherence"
+  - "State management patterns (Zustand enforcement)"
+  - "UI/UX consistency with design system"
+
+# Auto-review settings
+auto_review:
+  enabled: true
+  
+  # Auto-approve simple changes
+  auto_approve:
+    - "package*.json dependency updates"
+    - "README.md updates"
+    - "Documentation changes"
+    - "TypeScript type-only changes"
+  
+  # Request changes for critical issues
+  request_changes_on:
+    - "Security vulnerabilities"
+    - "Breaking API changes"
+    - "Missing TypeScript types"
+    - "State management violations (non-Zustand global state)"
+    - "Direct GraphQL backend calls (BFF violations)"
+
+# Integration settings
+integrations:
+  eslint:
+    enabled: true
+    config_file: "eslint.config.mjs"
+  
+  typescript:
+    enabled: true
+    config_file: "tsconfig.json"
+    strict_mode: true
+
+# Summary settings
+summary:
+  include_patterns: true
+  include_statistics: true
+  max_length: 500

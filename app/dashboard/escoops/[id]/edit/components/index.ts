@@ -1,0 +1,1 @@
+export { EscoopEditForm } from './escoop-edit-form';

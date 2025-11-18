@@ -1,0 +1,1 @@
+export { useNewsDetail } from './use-news-detail';

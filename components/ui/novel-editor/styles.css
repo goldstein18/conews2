@@ -1,0 +1,99 @@
+/* Novel Editor Styles */
+.novel-editor-wrapper {
+  @apply border rounded-lg overflow-hidden bg-background;
+}
+
+.novel-editor-content {
+  @apply border-t;
+}
+
+.novel-editor-content .tiptap {
+  @apply p-4 focus:outline-none min-h-[400px];
+}
+
+/* Typography Styles */
+.novel-editor-content .tiptap h1 {
+  @apply text-3xl font-bold mb-4 mt-6;
+}
+
+.novel-editor-content .tiptap h2 {
+  @apply text-2xl font-bold mb-3 mt-5;
+}
+
+.novel-editor-content .tiptap h3 {
+  @apply text-xl font-bold mb-2 mt-4;
+}
+
+.novel-editor-content .tiptap p {
+  @apply mb-3 leading-relaxed;
+}
+
+/* List Styles */
+.novel-editor-content .tiptap ul {
+  @apply list-disc list-inside mb-3 pl-4;
+}
+
+.novel-editor-content .tiptap ol {
+  @apply list-decimal list-inside mb-3 pl-4;
+}
+
+.novel-editor-content .tiptap li {
+  @apply mb-1;
+}
+
+/* Blockquote Styles */
+.novel-editor-content .tiptap blockquote {
+  @apply border-l-4 border-gray-300 pl-4 italic my-4 text-gray-700;
+}
+
+/* Code Styles */
+.novel-editor-content .tiptap code {
+  @apply bg-gray-100 rounded px-1.5 py-0.5 text-sm font-mono;
+}
+
+.novel-editor-content .tiptap pre {
+  @apply bg-gray-100 rounded p-4 overflow-x-auto my-4;
+}
+
+.novel-editor-content .tiptap pre code {
+  @apply bg-transparent p-0;
+}
+
+/* Link Styles */
+.novel-editor-content .tiptap a {
+  @apply text-blue-500 underline cursor-pointer hover:text-blue-600;
+}
+
+/* Image Styles */
+.novel-editor-content .tiptap img {
+  @apply max-w-full h-auto rounded-lg my-4;
+}
+
+/* Placeholder Styles */
+.novel-editor-content .tiptap p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  @apply float-left h-0 text-gray-400 pointer-events-none;
+}
+
+/* Text Alignment */
+.novel-editor-content .tiptap [style*="text-align: left"] {
+  @apply text-left;
+}
+
+.novel-editor-content .tiptap [style*="text-align: center"] {
+  @apply text-center;
+}
+
+.novel-editor-content .tiptap [style*="text-align: right"] {
+  @apply text-right;
+}
+
+/* Focus State */
+.novel-editor-content .tiptap:focus {
+  @apply outline-none;
+}
+
+/* Selection */
+.novel-editor-content .tiptap ::selection {
+  @apply bg-blue-200;
+}

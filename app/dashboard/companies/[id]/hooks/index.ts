@@ -1,0 +1,1 @@
+export { useCompanyDetail } from './use-company-detail';
