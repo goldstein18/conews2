@@ -75,6 +75,75 @@
   font-family: var(--font-anton), sans-serif !important;
 }
 
+/* Article Content Styling */
+.article-content {
+  @apply text-gray-900 leading-relaxed;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+.article-content p {
+  @apply mb-6;
+}
+
+.article-content h1,
+.article-content h2,
+.article-content h3,
+.article-content h4 {
+  @apply font-bold mt-8 mb-4 font-titleAcumin;
+}
+
+.article-content h2 {
+  font-size: 2rem;
+  line-height: 2.5rem;
+}
+
+.article-content h3 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+.article-content a {
+  @apply text-primary underline hover:text-primary/80;
+}
+
+.article-content ul,
+.article-content ol {
+  @apply mb-6 pl-6;
+}
+
+.article-content ul {
+  @apply list-disc;
+}
+
+.article-content ol {
+  @apply list-decimal;
+}
+
+.article-content li {
+  @apply mb-2;
+}
+
+.article-content img {
+  @apply rounded-lg my-8 w-full;
+}
+
+.article-content blockquote {
+  @apply border-l-4 border-gray-300 pl-6 italic my-6 text-gray-700;
+}
+
+.article-content code {
+  @apply bg-gray-100 px-2 py-1 rounded text-sm;
+}
+
+.article-content pre {
+  @apply bg-gray-100 p-4 rounded-lg overflow-x-auto my-6;
+}
+
+.article-content pre code {
+  @apply bg-transparent p-0;
+}
+
 /* Brand Colors */
 .text-brand-blue-400 {
   --tw-text-opacity: 1;
