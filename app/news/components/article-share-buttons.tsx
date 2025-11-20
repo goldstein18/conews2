@@ -112,7 +112,7 @@ export function ArticleShareButtons({ title, url, className }: ArticleShareButto
         </svg>
       </Button>
 
-      {typeof window !== 'undefined' && navigator.share && (
+      {typeof window !== 'undefined' && 'share' in navigator && (
         <Button
           variant="ghost"
           size="sm"
