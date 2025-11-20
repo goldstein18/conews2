@@ -24,7 +24,7 @@ export default function NewsArticlePage() {
   const params = useParams();
   const slug = params.slug as string;
 
-  const { data, loading, error } = useQuery(GET_NEWS_BY_SLUG, {
+  const { data, loading } = useQuery(GET_NEWS_BY_SLUG, {
     variables: { slug },
     fetchPolicy: 'cache-and-network',
     errorPolicy: 'all',

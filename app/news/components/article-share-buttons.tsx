@@ -47,7 +47,7 @@ export function ArticleShareButtons({ title, url, className }: ArticleShareButto
           title,
           url
         });
-      } catch (err) {
+      } catch {
         // User cancelled or error occurred
         console.log('Share cancelled');
       }

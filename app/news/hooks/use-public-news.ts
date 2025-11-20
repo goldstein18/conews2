@@ -75,10 +75,11 @@ export const usePublicNews = ({
   });
 
   // Check if we should use mock data (backend error or development mode)
+  const networkError = error && 'networkError' in error && error.networkError;
   const useMockData = error && (
     error.message?.includes('500') || 
-    (error as any)?.networkError?.statusCode === 500 ||
-    (error as any)?.networkError?.name === 'ServerError'
+    (networkError && typeof networkError === 'object' && 'statusCode' in networkError && networkError.statusCode === 500) ||
+    (networkError && typeof networkError === 'object' && 'name' in networkError && networkError.name === 'ServerError')
   ) || process.env.NODE_ENV === 'development' && !data?.news;
 
   // Get news articles - use mock data if backend fails, otherwise filter real data

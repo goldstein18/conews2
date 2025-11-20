@@ -6,7 +6,6 @@
 'use client';
 
 import Link from 'next/link';
-import { NewsCard } from './news-card';
 import type { NewsArticle } from '@/types/news';
 import { ImageWithFallback } from '@/components/ui/image-with-fallback';
 import { DEFAULT_IMAGE } from '@/lib/constants/images';
