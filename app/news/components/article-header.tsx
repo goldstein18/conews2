@@ -17,8 +17,8 @@ interface ArticleHeaderProps {
 
 export function ArticleHeader({ article, currentUrl }: ArticleHeaderProps) {
   const publishDate = article.publishedAt 
-    ? format(new Date(article.publishedAt), 'EEEE MMMM d, yyyy')
-    : format(new Date(article.createdAt), 'EEEE MMMM d, yyyy');
+    ? format(new Date(article.publishedAt), 'MMMM d, yyyy')
+    : format(new Date(article.createdAt), 'MMMM d, yyyy');
 
   const authorName = article.authorName || 'Time Out Contributor';
 

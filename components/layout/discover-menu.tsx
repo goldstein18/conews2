@@ -39,7 +39,7 @@ const discoverItems: DiscoverItem[] = [
   },
   {
     name: "Cultural News",
-    href: "/news/cultural",
+    href: "/news",
     icon: Newspaper,
     description: "Stay updated with arts and culture news",
   },

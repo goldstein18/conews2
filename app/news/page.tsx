@@ -5,45 +5,78 @@
 
 'use client';
 
-import { NewsGrid, NewsSkeleton, NewsHeader } from './components';
+import { NewsCategorySections, NewsSkeleton, NewsHeader } from './components';
 import { usePublicNews } from './hooks';
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect, useRef } from 'react';
 
 export default function NewsPage() {
-  // Category filter state
+  // Category selection state (for scrolling, not filtering)
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Fetch all approved news articles with optional category filter
+  // Fetch all approved news articles (no filtering)
   const {
     news,
     loading,
     error,
     refetch
-  } = usePublicNews({
-    categoryId: selectedCategory !== 'all' ? selectedCategory : undefined
-  });
+  } = usePublicNews({});
 
-  // Filter news by category slug if category is selected
+  // Use all news (no filtering)
   const filteredNews = useMemo(() => {
-    if (!news || news.length === 0) return [];
-    if (selectedCategory === 'all') return news;
+    return news || [];
+  }, [news]);
 
-    // Filter by category slug (match by slug, id, or name)
-    return news.filter(article => {
-      return article.categories?.some(category => {
-        const categorySlug = category.slug?.toLowerCase() || '';
-        const categoryId = category.id?.toLowerCase() || '';
-        const categoryName = category.name?.toLowerCase() || '';
-        const selectedSlug = selectedCategory.toLowerCase();
-        
-        // Match by slug, id, or name
-        return categorySlug === selectedSlug || 
-               categoryId === selectedSlug ||
-               categoryName === selectedSlug ||
-               categorySlug.includes(selectedSlug);
-      });
-    });
-  }, [news, selectedCategory]);
+  // Scroll to selected category when it changes
+  useEffect(() => {
+    if (selectedCategory === 'all') return;
+
+    // Clear any pending scroll
+    if (scrollTimeoutRef.current) {
+      clearTimeout(scrollTimeoutRef.current);
+    }
+
+    // Wait a bit for DOM to update, then scroll
+    scrollTimeoutRef.current = setTimeout(() => {
+      // Normalize the selected category to match section IDs
+      const normalizedCategory = selectedCategory.toLowerCase().replace(/\s+/g, '-');
+      const categoryId = `category-${normalizedCategory}`;
+      
+      // Try to find the element by ID
+      let element = document.getElementById(categoryId);
+      
+      // If not found, try to find by matching category names/slugs
+      if (!element) {
+        const allSections = document.querySelectorAll('[id^="category-"]');
+        allSections.forEach((section) => {
+          const sectionId = section.id.replace('category-', '');
+          // Check if the selected category matches the section (by slug or name)
+          if (sectionId === normalizedCategory || 
+              sectionId.includes(normalizedCategory) || 
+              normalizedCategory.includes(sectionId)) {
+            element = section as HTMLElement;
+          }
+        });
+      }
+      
+      if (element) {
+        const headerOffset = 120; // Account for sticky headers
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    }, 150);
+
+    return () => {
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+    };
+  }, [selectedCategory]);
 
   // Get featured article (first article with featuredUntil date in future, or first article)
   const featuredArticle = useMemo(() => {
@@ -132,9 +165,13 @@ export default function NewsPage() {
 
       <div className="container mx-auto px-4 py-8 md:py-12">
         <div className="space-y-8">
-          {/* News grid with featured article */}
+          {/* News category sections with featured article */}
           {filteredNews.length > 0 ? (
-            <NewsGrid articles={filteredNews} featuredArticle={featuredArticle} />
+            <NewsCategorySections 
+              articles={filteredNews} 
+              featuredArticle={featuredArticle}
+              selectedCategory={selectedCategory}
+            />
           ) : !loading ? (
             <div className="text-center py-16">
               <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gray-100 mb-6">

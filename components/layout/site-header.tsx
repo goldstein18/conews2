@@ -12,10 +12,34 @@ import { DiscoverMenu } from "./discover-menu";
 import { ScheduleMenu, ScheduleButton } from "./schedule-menu";
 import { MobileNav } from "./mobile-nav";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export function SiteHeader() {
   const { user, isAuthenticated, isLoggingOut } = useAuthStore();
   const pathname = usePathname();
+  const [isAtTop, setIsAtTop] = useState(true);
+
+  // Check if we're on the news page
+  const isNewsPage = pathname?.startsWith("/news");
+
+  // Handle scroll behavior for news page - only show header when at top
+  useEffect(() => {
+    if (!isNewsPage) {
+      setIsAtTop(true);
+      return;
+    }
+
+    const handleScroll = () => {
+      // Show header only when scroll position is at the very top (within 10px)
+      setIsAtTop(window.scrollY <= 10);
+    };
+
+    // Check initial scroll position
+    handleScroll();
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isNewsPage]);
 
   // We can't check httpOnly cookies from JavaScript, so we trust the auth state from the server
   // isAuthenticated is set by initializeAuth which calls /api/auth/me (server-side validation)
@@ -26,7 +50,11 @@ export function SiteHeader() {
   const isCulturalUser = isAuthenticated && user && !canAccessDashboard(user.role?.name);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-white/95 dark:bg-gray-950/95 backdrop-blur supports-[backdrop-filter]:bg-white/80 dark:supports-[backdrop-filter]:bg-gray-950/80">
+    <header 
+      className={`sticky top-0 z-50 w-full border-b bg-white/95 dark:bg-gray-950/95 backdrop-blur supports-[backdrop-filter]:bg-white/80 dark:supports-[backdrop-filter]:bg-gray-950/80 transition-transform duration-300 ${
+        isNewsPage && !isAtTop ? '-translate-y-full' : ''
+      }`}
+    >
       <div className="container max-w-7xl mx-auto px-4 py-4">
         <div className="flex items-center justify-between gap-4">
           {/* Logo */}

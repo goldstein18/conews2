@@ -9,4 +9,5 @@ export type { NewsHeaderCategory } from './news-header';
 export { ArticleShareButtons } from './article-share-buttons';
 export { ArticleHeader } from './article-header';
 export { RelatedArticles } from './related-articles';
+export { NewsCategorySections } from './news-category-sections';
 

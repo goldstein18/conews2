@@ -6,13 +6,12 @@
 'use client';
 
 import Link from 'next/link';
-import { Calendar, User, Tag, ArrowRight } from 'lucide-react';
+import { Tag, ArrowRight } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ImageWithFallback } from '@/components/ui/image-with-fallback';
 import type { NewsArticle } from '@/types/news';
 import { DEFAULT_IMAGE } from '@/lib/constants/images';
-import { format } from 'date-fns';
 
 interface NewsHeroProps {
   article: NewsArticle;
@@ -20,11 +19,6 @@ interface NewsHeroProps {
 
 export function NewsHero({ article }: NewsHeroProps) {
   const imageUrl = article.heroImageUrl || DEFAULT_IMAGE;
-  
-  // Format publish date
-  const publishDate = article.publishedAt 
-    ? format(new Date(article.publishedAt), 'MMMM d, yyyy')
-    : format(new Date(article.createdAt), 'MMMM d, yyyy');
 
   // Get primary category
   const primaryCategory = article.categories?.[0];
@@ -64,20 +58,6 @@ export function NewsHero({ article }: NewsHeroProps) {
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight group-hover:text-[#e74e3d] transition-colors font-titleAcumin">
               {article.title}
             </h1>
-
-            {/* Meta information */}
-            <div className="flex items-center gap-6 text-sm md:text-base flex-wrap">
-              {article.authorName && (
-                <div className="flex items-center gap-2">
-                  <User className="h-4 w-4" />
-                  <span>{article.authorName}</span>
-                </div>
-              )}
-              <div className="flex items-center gap-2">
-                <Calendar className="h-4 w-4" />
-                <span>{publishDate}</span>
-              </div>
-            </div>
 
             {/* Excerpt */}
             {excerpt && (

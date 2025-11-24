@@ -70,7 +70,7 @@ export function NewsHeader({
   };
 
   return (
-    <div className="w-full bg-white">
+    <div className="w-full bg-white sticky top-0 z-[60] border-b border-blue-200 shadow-sm">
       <div className="container mx-auto px-4">
         <div className="flex items-center gap-4 py-3 overflow-x-auto">
           {/* Location Selector */}

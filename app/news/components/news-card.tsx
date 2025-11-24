@@ -6,13 +6,12 @@
 'use client';
 
 import Link from 'next/link';
-import { Calendar, User, Tag } from 'lucide-react';
+import { Tag } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ImageWithFallback } from '@/components/ui/image-with-fallback';
 import type { NewsArticle } from '@/types/news';
 import { DEFAULT_IMAGE } from '@/lib/constants/images';
-import { format } from 'date-fns';
 
 interface NewsCardProps {
   article: NewsArticle;
@@ -21,11 +20,6 @@ interface NewsCardProps {
 
 export function NewsCard({ article, featured = false }: NewsCardProps) {
   const imageUrl = article.heroImageUrl || DEFAULT_IMAGE;
-  
-  // Format publish date
-  const publishDate = article.publishedAt 
-    ? format(new Date(article.publishedAt), 'MMM d, yyyy')
-    : format(new Date(article.createdAt), 'MMM d, yyyy');
 
   // Get primary category
   const primaryCategory = article.categories?.[0];
@@ -69,20 +63,6 @@ export function NewsCard({ article, featured = false }: NewsCardProps) {
           }`}>
             {article.title}
           </h3>
-
-          {/* Meta information */}
-          <div className="flex items-center gap-4 text-sm text-muted-foreground flex-wrap">
-            {article.authorName && (
-              <div className="flex items-center gap-1.5">
-                <User className="h-4 w-4" />
-                <span>{article.authorName}</span>
-              </div>
-            )}
-            <div className="flex items-center gap-1.5">
-              <Calendar className="h-4 w-4" />
-              <span>{publishDate}</span>
-            </div>
-          </div>
 
           {/* Summary/excerpt from body */}
           {article.body && (
