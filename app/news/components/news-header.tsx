@@ -70,7 +70,7 @@ export function NewsHeader({
   };
 
   return (
-    <div className="w-full bg-white sticky top-0 z-[60] border-b border-blue-200 shadow-sm">
+    <div className="w-full bg-white sticky top-0 z-40 border-b border-blue-200 shadow-sm">
       <div className="container mx-auto px-2 sm:px-4">
         {/* Top row: Location and action buttons */}
         <div className="flex items-center gap-2 sm:gap-4 py-2 sm:py-3 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
