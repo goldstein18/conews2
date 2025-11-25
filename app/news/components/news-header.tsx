@@ -71,17 +71,19 @@ export function NewsHeader({
 
   return (
     <div className="w-full bg-white sticky top-0 z-[60] border-b border-blue-200 shadow-sm">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center gap-4 py-3 overflow-x-auto">
+      <div className="container mx-auto px-2 sm:px-4">
+        {/* Top row: Location and action buttons */}
+        <div className="flex items-center gap-2 sm:gap-4 py-2 sm:py-3 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           {/* Location Selector */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
                 variant="default"
-                className="bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md px-4 py-2 whitespace-nowrap text-sm"
+                className="bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md px-3 sm:px-4 py-1.5 sm:py-2 whitespace-nowrap text-xs sm:text-sm shrink-0"
               >
-                {currentLocation.name}
-                <ChevronDown className="ml-2 h-4 w-4" />
+                <span className="hidden sm:inline">{currentLocation.name}</span>
+                <span className="sm:hidden">{currentLocation.name.split(' ')[0]}</span>
+                <ChevronDown className="ml-1 sm:ml-2 h-3 w-3 sm:h-4 sm:w-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start" className="min-w-[200px]">
@@ -100,53 +102,54 @@ export function NewsHeader({
             </DropdownMenuContent>
           </DropdownMenu>
 
-          {/* Industry News Button */}
+          {/* Industry News Button - Hidden on very small screens */}
           <Button
             variant="default"
-            className="bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-md px-4 py-2 whitespace-nowrap text-sm"
+            className="bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-md px-3 sm:px-4 py-1.5 sm:py-2 whitespace-nowrap text-xs sm:text-sm shrink-0 hidden xs:inline-flex"
             asChild
           >
             <Link href="/dashboard/news" target="_blank" rel="noopener noreferrer">
-              INDUSTRY NEWS
-              <ExternalLink className="ml-2 h-4 w-4" />
+              <span className="hidden sm:inline">INDUSTRY NEWS</span>
+              <span className="sm:hidden">INDUSTRY</span>
+              <ExternalLink className="ml-1 sm:ml-2 h-3 w-3 sm:h-4 sm:w-4" />
             </Link>
           </Button>
 
-          {/* Category Navigation Links */}
-          <div className="flex items-center gap-6 flex-1 min-w-0 overflow-x-auto">
-            {NEWS_HEADER_CATEGORIES.map((category) => {
-              const isActive = selectedCategory === category.id;
-              
-              return (
-                <button
-                  key={category.id}
-                  onClick={() => handleCategoryClick(category.id)}
-                  className={cn(
-                    'text-sm font-semibold text-gray-700 hover:text-gray-900 transition-colors whitespace-nowrap relative pb-1',
-                    isActive && 'text-blue-600'
-                  )}
-                >
-                  {category.name}
-                  {/* Active indicator underline - positioned above bottom border */}
-                  {isActive && (
-                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600 -mb-0.5 z-10" />
-                  )}
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Events Button */}
+          {/* Events Button - Hidden on very small screens */}
           <Button
             variant="default"
-            className="bg-pink-600 hover:bg-pink-700 text-white font-semibold rounded-md px-4 py-2 whitespace-nowrap text-sm"
+            className="bg-pink-600 hover:bg-pink-700 text-white font-semibold rounded-md px-3 sm:px-4 py-1.5 sm:py-2 whitespace-nowrap text-xs sm:text-sm shrink-0 hidden xs:inline-flex"
             asChild
           >
             <Link href="/calendar/events" target="_blank" rel="noopener noreferrer">
               EVENTS
-              <ExternalLink className="ml-2 h-4 w-4" />
+              <ExternalLink className="ml-1 sm:ml-2 h-3 w-3 sm:h-4 sm:w-4" />
             </Link>
           </Button>
+        </div>
+
+        {/* Category Navigation Links - Scrollable row */}
+        <div className="flex items-center gap-3 sm:gap-6 pb-2 sm:pb-3 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          {NEWS_HEADER_CATEGORIES.map((category) => {
+            const isActive = selectedCategory === category.id;
+            
+            return (
+              <button
+                key={category.id}
+                onClick={() => handleCategoryClick(category.id)}
+                className={cn(
+                  'text-xs sm:text-sm font-semibold text-gray-700 hover:text-gray-900 transition-colors whitespace-nowrap relative pb-1 shrink-0',
+                  isActive && 'text-blue-600'
+                )}
+              >
+                {category.name}
+                {/* Active indicator underline */}
+                {isActive && (
+                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600 -mb-0.5 z-10" />
+                )}
+              </button>
+            );
+          })}
         </div>
         
         {/* Bottom border line - light blue background */}

@@ -101,7 +101,7 @@ export default function NewsPage() {
           selectedCategory={selectedCategory}
           onCategoryChange={setSelectedCategory}
         />
-        <div className="container mx-auto px-4 py-8 md:py-12">
+        <div className="container mx-auto px-3 sm:px-4 py-6 sm:py-8 md:py-12">
           <NewsSkeleton />
         </div>
       </div>
@@ -132,7 +132,7 @@ export default function NewsPage() {
           selectedCategory={selectedCategory}
           onCategoryChange={setSelectedCategory}
         />
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-3 sm:px-4 py-6 sm:py-8">
           <div className="text-center py-16">
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-red-100 mb-4">
               <span className="text-3xl">⚠️</span>
@@ -163,7 +163,7 @@ export default function NewsPage() {
         onCategoryChange={setSelectedCategory}
       />
 
-      <div className="container mx-auto px-4 py-8 md:py-12">
+      <div className="container mx-auto px-3 sm:px-4 py-6 sm:py-8 md:py-12">
         <div className="space-y-8">
           {/* News category sections with featured article */}
           {filteredNews.length > 0 ? (

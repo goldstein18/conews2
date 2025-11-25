@@ -128,16 +128,16 @@ export function NewsCategorySections({ articles, featuredArticle, selectedCatego
         const categoryId = `category-${categorySlug}`;
         
         return (
-          <section key={group.category.id} id={categoryId} className="space-y-6 scroll-mt-24">
+          <section key={group.category.id} id={categoryId} className="space-y-4 sm:space-y-6 scroll-mt-24">
             {/* Category header with title and "More" button */}
-            <div className="flex items-center justify-between border-b-2 border-gray-200 pb-3">
-              <h2 className="text-3xl font-bold font-titleAcumin uppercase" style={{ color: '#3D98D3' }}>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 border-b-2 border-gray-200 pb-3">
+              <h2 className="text-2xl sm:text-3xl font-bold font-titleAcumin uppercase" style={{ color: '#3D98D3' }}>
                 {group.category.name}
               </h2>
               <Button
                 size="sm"
                 asChild
-                className="gap-2 bg-[#3D98D3] hover:bg-[#2d7fb8] text-white"
+                className="gap-2 bg-[#3D98D3] hover:bg-[#2d7fb8] text-white w-full sm:w-auto shrink-0"
               >
                 <Link href={`/news?category=${group.category.slug || group.category.id}`}>
                   More {group.category.name}
