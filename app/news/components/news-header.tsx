@@ -72,7 +72,7 @@ export function NewsHeader({
   return (
     <div className="w-full bg-white sticky top-0 z-40 border-b border-blue-200 shadow-sm">
       <div className="container mx-auto px-2 sm:px-4">
-        <div className="flex items-center gap-2 sm:gap-4 py-2 sm:py-3">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-4 py-2 sm:py-3 justify-between">
           {/* Location Selector */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -104,7 +104,7 @@ export function NewsHeader({
           {/* Industry News Button - Hidden on very small screens */}
           <Button
             variant="default"
-            className="bg-[#695ba8] hover:bg-[#4c3a8c] text-white font-normal rounded-md px-2.5 sm:px-3 py-1 sm:py-1.5 whitespace-nowrap text-sm sm:text-sm shrink-0 hidden sm:inline-flex typography-subheader"
+            className="bg-[#695ba8] hover:bg-[#4c3a8c] text-white font-normal rounded-md px-2.5 sm:px-3 py-1 sm:py-1.5 whitespace-nowrap text-sm sm:text-sm shrink-0 inline-flex typography-subheader"
             asChild
           >
             <Link href="/dashboard/news" target="_blank" rel="noopener noreferrer">
@@ -115,7 +115,7 @@ export function NewsHeader({
           </Button>
 
           {/* Category Navigation Links - Scrollable middle section */}
-          <div className="flex-1 min-w-0 mx-2">
+          <div className="flex-1 min-w-0 mx-2 order-last sm:order-none">
             <div className="flex items-center gap-3 sm:gap-6 pb-1 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
               {NEWS_HEADER_CATEGORIES.map((category) => {
                 const isActive = selectedCategory === category.id;
@@ -143,7 +143,7 @@ export function NewsHeader({
           {/* Events Button - Hidden on very small screens */}
           <Button
             variant="default"
-            className="bg-[#f05d7a] hover:bg-[#d1546d] text-white font-normal rounded-md px-2.5 sm:px-3 py-1 sm:py-1.5 whitespace-nowrap text-sm sm:text-sm shrink-0 hidden sm:inline-flex typography-subheader"
+            className="bg-[#f05d7a] hover:bg-[#d1546d] text-white font-normal rounded-md px-2.5 sm:px-3 py-1 sm:py-1.5 whitespace-nowrap text-sm sm:text-sm shrink-0 inline-flex typography-subheader"
             asChild
           >
             <Link href="/calendar/events" target="_blank" rel="noopener noreferrer">
