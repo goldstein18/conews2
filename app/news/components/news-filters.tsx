@@ -17,10 +17,15 @@ export interface NewsCategory {
 
 export const NEWS_CATEGORIES: NewsCategory[] = [
   { id: 'all', name: 'All', slug: 'all' },
-  { id: 'film', name: 'Film', slug: 'film' },
   { id: 'things-to-do', name: 'Things to Do', slug: 'things-to-do' },
-  { id: 'art-museum', name: 'Arts & Museum', slug: 'art-museum' },
-  { id: 'restaurants', name: 'Restaurants', slug: 'restaurants' },
+  { id: 'art-museums', name: 'Art & Museums', slug: 'art-museums' },
+  { id: 'culinary', name: 'Culinary', slug: 'culinary' },
+  { id: 'dance', name: 'Dance', slug: 'dance' },
+  { id: 'festivals-fairs', name: 'Festivals & Fairs', slug: 'festivals-fairs' },
+  { id: 'film', name: 'Film', slug: 'film' },
+  { id: 'music', name: 'Music', slug: 'music' },
+  { id: 'theater', name: 'Theater', slug: 'theater' },
+  { id: 'city-guides', name: 'City Guides', slug: 'city-guides' },
 ];
 
 interface NewsFiltersProps {

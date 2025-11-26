@@ -27,10 +27,12 @@ export interface NewsHeaderCategory {
 export const NEWS_HEADER_CATEGORIES: NewsHeaderCategory[] = [
   { id: 'all', name: 'ALL', slug: 'all' },
   { id: 'things-to-do', name: 'THINGS TO DO', slug: 'things-to-do' },
-  { id: 'art', name: 'ARTS & MUSEUMS', slug: 'art' },
+  { id: 'art-museums', name: 'ART & MUSEUMS', slug: 'art-museums' },
+  { id: 'culinary', name: 'CULINARY', slug: 'culinary' },
   { id: 'dance', name: 'DANCE', slug: 'dance' },
-  { id: 'festivals', name: 'FESTIVALS', slug: 'festivals' },
+  { id: 'festivals-and-fairs', name: 'FESTIVALS & FAIRS', slug: 'festivals-and-fairs' },
   { id: 'film', name: 'FILM', slug: 'film' },
+  { id: 'music', name: 'MUSIC', slug: 'music' },
   { id: 'theater', name: 'THEATER', slug: 'theater' },
   { id: 'city-guides', name: 'CITY GUIDES', slug: 'city-guides' },
 ];
@@ -48,13 +50,17 @@ interface NewsHeaderProps {
   onCategoryChange?: (categoryId: string) => void;
   selectedLocation?: string;
   onLocationChange?: (locationId: string) => void;
+  showIndustryButton?: boolean;
+  industryHref?: string;
 }
 
 export function NewsHeader({
   selectedCategory,
   onCategoryChange,
   selectedLocation = 'miami',
-  onLocationChange
+  onLocationChange,
+  showIndustryButton = true,
+  industryHref = "/industry-news"
 }: NewsHeaderProps) {
   const [currentLocation, setCurrentLocation] = useState(
     LOCATIONS.find(loc => loc.id === selectedLocation) || LOCATIONS[0]
@@ -101,18 +107,20 @@ export function NewsHeader({
             </DropdownMenuContent>
           </DropdownMenu>
 
-          {/* Industry News Button - Hidden on very small screens */}
-          <Button
-            variant="default"
-            className="bg-[#695ba8] hover:bg-[#4c3a8c] text-white font-normal rounded-md px-2.5 sm:px-3 py-1 sm:py-1.5 whitespace-nowrap text-sm sm:text-sm shrink-0 inline-flex typography-subheader"
-            asChild
-          >
-            <Link href="/dashboard/news" target="_blank" rel="noopener noreferrer">
-              <span className="hidden sm:inline">INDUSTRY NEWS</span>
-              <span className="sm:hidden">INDUSTRY</span>
-              <ExternalLink className="ml-1 sm:ml-2 h-3 w-3 sm:h-4 sm:w-4" />
-            </Link>
-          </Button>
+          {/* Industry News Button */}
+          {showIndustryButton && (
+            <Button
+              variant="default"
+              className="bg-[#695ba8] hover:bg-[#4c3a8c] text-white font-normal rounded-md px-2.5 sm:px-3 py-1 sm:py-1.5 whitespace-nowrap text-sm sm:text-sm shrink-0 inline-flex typography-subheader"
+              asChild
+            >
+              <Link href={industryHref} target="_blank" rel="noopener noreferrer">
+                <span className="hidden sm:inline">INDUSTRY NEWS</span>
+                <span className="sm:hidden">INDUSTRY</span>
+                <ExternalLink className="ml-1 sm:ml-2 h-3 w-3 sm:h-4 sm:w-4" />
+              </Link>
+            </Button>
+          )}
 
           {/* Category Navigation Links - Scrollable middle section */}
           <div className="flex-1 min-w-0 mx-2 order-last sm:order-none">
