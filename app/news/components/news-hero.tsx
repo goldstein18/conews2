@@ -69,8 +69,8 @@ export function NewsHero({ article }: NewsHeroProps) {
             {/* Read more button */}
             <div className="pt-4">
               <Button 
-                variant="secondary" 
-                className="group-hover:bg-primary group-hover:text-primary-foreground transition-colors"
+                variant="default" 
+                className="bg-[#3D98D3] hover:bg-[#2d7fb8] text-white uppercase tracking-[0.3em] transition-colors gap-2 typography-subheader"
               >
                 Read More
                 <ArrowRight className="ml-2 h-4 w-4" />

@@ -25,8 +25,9 @@ export interface NewsHeaderCategory {
 }
 
 export const NEWS_HEADER_CATEGORIES: NewsHeaderCategory[] = [
+  { id: 'all', name: 'ALL', slug: 'all' },
   { id: 'things-to-do', name: 'THINGS TO DO', slug: 'things-to-do' },
-  { id: 'art', name: 'ART & MUSEUMS', slug: 'art' },
+  { id: 'art', name: 'ARTS & MUSEUMS', slug: 'art' },
   { id: 'dance', name: 'DANCE', slug: 'dance' },
   { id: 'festivals', name: 'FESTIVALS', slug: 'festivals' },
   { id: 'film', name: 'FILM', slug: 'film' },
@@ -36,11 +37,10 @@ export const NEWS_HEADER_CATEGORIES: NewsHeaderCategory[] = [
 
 // Mock locations for now - can be replaced with real location data
 const LOCATIONS = [
-  { id: 'miami', name: 'MIAMI', slug: 'miami' },
-  { id: 'new-york', name: 'NEW YORK', slug: 'new-york' },
-  { id: 'los-angeles', name: 'LOS ANGELES', slug: 'los-angeles' },
-  { id: 'chicago', name: 'CHICAGO', slug: 'chicago' },
-  { id: 'orlando', name: 'ORLANDO', slug: 'orlando' },
+  { id: 'greater-atlanta', name: 'GREATER ATLANTA', slug: 'greater-atlanta' },
+  { id: 'floridas-west-coast', name: "FLORIDA'S WEST COAST", slug: 'floridas-west-coast' },
+  { id: 'the-palm-beaches', name: 'THE PALM BEACHES', slug: 'palm-beaches' },
+  { id: 'miami-fort-lauderdale', name: 'MIAMI/FORT LAUDERDALE', slug: 'miami-fort-lauderdale' },
 ];
 
 interface NewsHeaderProps {
@@ -72,14 +72,13 @@ export function NewsHeader({
   return (
     <div className="w-full bg-white sticky top-0 z-40 border-b border-blue-200 shadow-sm">
       <div className="container mx-auto px-2 sm:px-4">
-        {/* Top row: Location and action buttons */}
-        <div className="flex items-center gap-2 sm:gap-4 py-2 sm:py-3 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+        <div className="flex items-center gap-2 sm:gap-4 py-2 sm:py-3">
           {/* Location Selector */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
                 variant="default"
-                className="bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md px-3 sm:px-4 py-1.5 sm:py-2 whitespace-nowrap text-xs sm:text-sm shrink-0"
+                className="bg-[#3d98d3] hover:bg-[#2b85ba] text-white font-normal rounded-md px-2.5 sm:px-3 py-1 sm:py-1.5 whitespace-nowrap text-sm sm:text-sm shrink-0 border-0 typography-subheader"
               >
                 <span className="hidden sm:inline">{currentLocation.name}</span>
                 <span className="sm:hidden">{currentLocation.name.split(' ')[0]}</span>
@@ -105,7 +104,7 @@ export function NewsHeader({
           {/* Industry News Button - Hidden on very small screens */}
           <Button
             variant="default"
-            className="bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-md px-3 sm:px-4 py-1.5 sm:py-2 whitespace-nowrap text-xs sm:text-sm shrink-0 hidden xs:inline-flex"
+            className="bg-[#695ba8] hover:bg-[#4c3a8c] text-white font-normal rounded-md px-2.5 sm:px-3 py-1 sm:py-1.5 whitespace-nowrap text-sm sm:text-sm shrink-0 hidden sm:inline-flex typography-subheader"
             asChild
           >
             <Link href="/dashboard/news" target="_blank" rel="noopener noreferrer">
@@ -115,10 +114,36 @@ export function NewsHeader({
             </Link>
           </Button>
 
+          {/* Category Navigation Links - Scrollable middle section */}
+          <div className="flex-1 min-w-0 mx-2">
+            <div className="flex items-center gap-3 sm:gap-6 pb-1 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+              {NEWS_HEADER_CATEGORIES.map((category) => {
+                const isActive = selectedCategory === category.id;
+
+                return (
+                  <button
+                    key={category.id}
+                    onClick={() => handleCategoryClick(category.id)}
+                    className={cn(
+                      'text-sm font-normal text-gray-700 hover:text-gray-900 transition-colors whitespace-nowrap relative pb-1 shrink-0 typography-subheader',
+                      isActive && 'text-blue-600'
+                    )}
+                  >
+                    {category.name}
+                    {/* Active indicator underline */}
+                    {isActive && (
+                      <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600 -mb-0.5 z-10" />
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
           {/* Events Button - Hidden on very small screens */}
           <Button
             variant="default"
-            className="bg-pink-600 hover:bg-pink-700 text-white font-semibold rounded-md px-3 sm:px-4 py-1.5 sm:py-2 whitespace-nowrap text-xs sm:text-sm shrink-0 hidden xs:inline-flex"
+            className="bg-[#f05d7a] hover:bg-[#d1546d] text-white font-normal rounded-md px-2.5 sm:px-3 py-1 sm:py-1.5 whitespace-nowrap text-sm sm:text-sm shrink-0 hidden sm:inline-flex typography-subheader"
             asChild
           >
             <Link href="/calendar/events" target="_blank" rel="noopener noreferrer">
@@ -126,30 +151,6 @@ export function NewsHeader({
               <ExternalLink className="ml-1 sm:ml-2 h-3 w-3 sm:h-4 sm:w-4" />
             </Link>
           </Button>
-        </div>
-
-        {/* Category Navigation Links - Scrollable row */}
-        <div className="flex items-center gap-3 sm:gap-6 pb-2 sm:pb-3 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-          {NEWS_HEADER_CATEGORIES.map((category) => {
-            const isActive = selectedCategory === category.id;
-            
-            return (
-              <button
-                key={category.id}
-                onClick={() => handleCategoryClick(category.id)}
-                className={cn(
-                  'text-xs sm:text-sm font-semibold text-gray-700 hover:text-gray-900 transition-colors whitespace-nowrap relative pb-1 shrink-0',
-                  isActive && 'text-blue-600'
-                )}
-              >
-                {category.name}
-                {/* Active indicator underline */}
-                {isActive && (
-                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600 -mb-0.5 z-10" />
-                )}
-              </button>
-            );
-          })}
         </div>
         
         {/* Bottom border line - light blue background */}

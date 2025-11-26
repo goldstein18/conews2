@@ -12,6 +12,24 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen flex flex-col lg:flex-row">
+      {/* Desktop Header */}
+      <header className="hidden lg:flex fixed top-0 left-0 right-0 z-50 h-16 bg-gradient-to-r from-[#E94B3C] via-[#D64236] to-[#E94B3C] border-b border-white/30 px-8 items-center justify-between text-white">
+        <div className="flex items-center gap-3">
+          <div className="w-12 h-12 bg-white/20 rounded-lg border border-white/40 flex items-center justify-center">
+            <span className="text-3xl">🦉</span>
+          </div>
+          <div className="text-lg font-semibold tracking-[0.2em] uppercase">CultureOwl</div>
+        </div>
+        <nav className="flex items-center gap-6 text-sm font-semibold uppercase tracking-wide">
+          <Link href="/" className="transition-colors hover:text-white/80">
+            Home
+          </Link>
+          <Link href="/auth/login" className="transition-colors hover:text-white/80">
+            Login
+          </Link>
+        </nav>
+      </header>
+
       {/* Top Bar - Only visible on mobile/tablet */}
       <div className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-[#E94B3C] to-[#E94B3C] h-14 flex items-center justify-between px-4">
         {/* Logo */}
@@ -38,7 +56,7 @@ export default function RegisterPage() {
       </div>
 
       {/* Left Side - Form */}
-      <div className="flex-1 lg:flex-none lg:w-1/2 flex items-center justify-center p-6 md:p-8 pt-20 lg:pt-8 bg-white">
+      <div className="flex-1 lg:flex-none lg:w-1/2 flex items-center justify-center p-6 md:p-8 pt-20 bg-white">
         <div className="w-full" style={{ maxWidth: '28rem' }}>
 
           {/* Main Title */}
@@ -63,22 +81,6 @@ export default function RegisterPage() {
 
       {/* Right Side - Hero/Branding (Hidden on mobile, shown on desktop) */}
       <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-[#E94B3C] via-[#D64236] to-[#E94B3C] relative overflow-hidden">
-        {/* Hamburger Menu - Desktop */}
-        <div className="absolute top-6 right-6 z-20">
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="text-white hover:bg-white/20">
-                <Menu className="h-6 w-6" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-64">
-              <nav className="flex flex-col space-y-4 mt-8">
-                <Link href="/" className="text-lg hover:text-primary">Home</Link>
-                <Link href="/auth/login" className="text-lg hover:text-primary">Login</Link>
-              </nav>
-            </SheetContent>
-          </Sheet>
-        </div>
 
         {/* Decorative Elements */}
         <div className="absolute inset-0 opacity-5">
@@ -87,7 +89,7 @@ export default function RegisterPage() {
         </div>
 
         {/* Hero Content */}
-        <div className="relative z-10 flex flex-col items-center justify-center w-full px-12 text-white">
+        <div className="relative z-10 flex flex-col items-center justify-center w-full px-12 text-white pt-16">
           {/* Main Headline */}
           <div className="text-center mb-8">
             <h2 className="text-7xl font-anton tracking-tight mb-2">

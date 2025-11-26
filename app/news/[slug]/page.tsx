@@ -8,12 +8,9 @@
 import { useQuery } from '@apollo/client';
 import { useParams } from 'next/navigation';
 import { GET_NEWS_BY_SLUG } from '@/lib/graphql/news';
-import { ArrowLeft } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { ImageWithFallback } from '@/components/ui/image-with-fallback';
 import { Skeleton } from '@/components/ui/skeleton';
 import { DEFAULT_IMAGE } from '@/lib/constants/images';
-import Link from 'next/link';
 import { ArticleHeader } from '../components/article-header';
 import { RelatedArticles } from '../components/related-articles';
 import { usePublicNews } from '../hooks/use-public-news';
@@ -121,15 +118,7 @@ export default function NewsArticlePage() {
   return (
     <article className="min-h-screen bg-white">
       <div className="container mx-auto px-4 py-8 md:py-12">
-        <div className="max-w-4xl mx-auto space-y-8">
-          {/* Back button */}
-          <Link href="/news">
-            <Button variant="ghost" className="mb-4 text-gray-600 hover:text-gray-900">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to News
-            </Button>
-          </Link>
-
+        <div className="max-w-4xl mx-auto space-y-6">
           {/* Article Header (Title, Author, Date, Share Buttons) */}
           <ArticleHeader 
             article={displayArticle}
@@ -137,7 +126,7 @@ export default function NewsArticlePage() {
           />
 
           {/* Hero Image */}
-          <div className="relative w-full aspect-[1200/628] overflow-hidden rounded-lg bg-gray-100 mt-8">
+          <div className="relative w-full aspect-[1200/628] overflow-hidden rounded-lg bg-gray-100 mt-6">
             <ImageWithFallback
               src={imageUrl}
               alt={displayArticle.heroImageAlt || displayArticle.title}

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Anton } from "next/font/google";
+import { Inter, Anton, Roboto } from "next/font/google";
 import "./globals.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -19,6 +19,11 @@ const anton = Anton({
   subsets: ["latin"],
   variable: "--font-anton"
 });
+const roboto = Roboto({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-roboto"
+});
 
 export const metadata: Metadata = {
   title: "CultureOwl - Discover Arts and Culture",
@@ -36,7 +41,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} ${anton.variable}`}>
+      <body className={`${inter.className} ${anton.variable} ${roboto.variable}`}>
         <ErrorBoundary>
           <ApolloWrapper>
             <LogoutOverlay />

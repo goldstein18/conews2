@@ -17,9 +17,9 @@ export interface NewsCategory {
 
 export const NEWS_CATEGORIES: NewsCategory[] = [
   { id: 'all', name: 'All', slug: 'all' },
-  { id: 'shopping', name: 'Shopping', slug: 'shopping' },
+  { id: 'film', name: 'Film', slug: 'film' },
   { id: 'things-to-do', name: 'Things to Do', slug: 'things-to-do' },
-  { id: 'art', name: 'Art', slug: 'art' },
+  { id: 'art-museum', name: 'Arts & Museum', slug: 'art-museum' },
   { id: 'restaurants', name: 'Restaurants', slug: 'restaurants' },
 ];
 

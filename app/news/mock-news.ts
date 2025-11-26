@@ -40,7 +40,7 @@ export const MOCK_NEWS_ARTICLES: NewsArticle[] = [
     categories: [
       {
         id: 'cat-1',
-        name: 'Arts & Culture',
+        name: 'Arts & Museums',
         slug: 'art',
         description: 'Visual arts, galleries, and cultural events',
         order: 1,
@@ -250,7 +250,7 @@ export const MOCK_NEWS_ARTICLES: NewsArticle[] = [
     categories: [
       {
         id: 'cat-1',
-        name: 'Arts & Culture',
+        name: 'Arts & Museums',
         slug: 'art',
         description: 'Visual arts, galleries, and cultural events',
         order: 1,
@@ -415,7 +415,7 @@ export const MOCK_NEWS_ARTICLES: NewsArticle[] = [
     categories: [
       {
         id: 'cat-1',
-        name: 'Arts & Culture',
+        name: 'Arts & Museums',
         slug: 'art',
         description: 'Visual arts, galleries, and cultural events',
         order: 1,
@@ -489,8 +489,8 @@ export const MOCK_NEWS_ARTICLES: NewsArticle[] = [
   },
   {
     id: '10',
-    title: 'Design District Shopping Guide: Best Boutiques and Galleries',
-    slug: 'design-district-shopping-guide-best-boutiques-galleries',
+    title: 'Design District Film Guide: Best Boutiques and Galleries',
+    slug: 'design-district-film-guide-best-boutiques-galleries',
     body: `<p>Miami's Design District continues to evolve as a premier shopping destination, combining luxury retail with cutting-edge art galleries. Our comprehensive guide highlights the best boutiques, concept stores, and design showrooms in the area.</p>
 
 <p>From internationally recognized fashion houses to local artisan workshops, the Design District offers something for every style and budget. The neighborhood has transformed over the past decade from a furniture district into one of Miami's most stylish shopping destinations, with flagship stores from brands like Dior, Hermès, and Louis Vuitton.</p>
@@ -525,9 +525,9 @@ export const MOCK_NEWS_ARTICLES: NewsArticle[] = [
     categories: [
       {
         id: 'cat-7',
-        name: 'Shopping',
-        slug: 'shopping',
-        description: 'Shopping, boutiques, and retail',
+        name: 'Film',
+        slug: 'film',
+        description: 'Film, screenings, and cinema culture',
         order: 7,
         isActive: true,
         createdAt: new Date().toISOString(),
@@ -535,7 +535,7 @@ export const MOCK_NEWS_ARTICLES: NewsArticle[] = [
       }
     ],
     tags: [
-      { id: 'tag-26', name: 'shopping', display: 'Shopping' },
+      { id: 'tag-26', name: 'film', display: 'Film' },
       { id: 'tag-27', name: 'design-district', display: 'Design District' },
       { id: 'tag-28', name: 'boutiques', display: 'Boutiques' }
     ],

@@ -7,15 +7,18 @@
 'use client';
 
 import { format } from 'date-fns';
+import Link from 'next/link';
+import { ArrowLeft } from 'lucide-react';
 import { ArticleShareButtons } from './article-share-buttons';
 import type { NewsArticle } from '@/types/news';
 
 interface ArticleHeaderProps {
   article: NewsArticle;
   currentUrl: string;
+  backHref?: string;
 }
 
-export function ArticleHeader({ article, currentUrl }: ArticleHeaderProps) {
+export function ArticleHeader({ article, currentUrl, backHref = "/news" }: ArticleHeaderProps) {
   const publishDate = article.publishedAt 
     ? format(new Date(article.publishedAt), 'MMMM d, yyyy')
     : format(new Date(article.createdAt), 'MMMM d, yyyy');
@@ -23,32 +26,37 @@ export function ArticleHeader({ article, currentUrl }: ArticleHeaderProps) {
   const authorName = article.authorName || 'Time Out Contributor';
 
   return (
-    <header className="space-y-6">
-      {/* Title */}
-      <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight font-titleAcumin text-gray-900">
-        {article.title}
-      </h1>
-
-      {/* Author and Date */}
-      <div className="flex items-center gap-4 flex-wrap text-gray-600">
-        {authorName && (
-          <div className="text-sm font-medium">
-            <span className="font-semibold text-gray-900">{authorName}</span>
+    <header className="space-y-4">
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+        <div className="flex items-start gap-4">
+          <Link
+            href={backHref}
+            className="text-gray-600 hover:text-gray-900 transition-colors pt-1"
+            aria-label="Back to news"
+          >
+            <ArrowLeft className="h-6 w-6" />
+          </Link>
+          <div className="min-w-0 space-y-3">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight font-titleAcumin text-gray-900">
+              {article.title}
+            </h1>
+            <div className="flex flex-wrap items-center gap-4 text-gray-600 text-sm">
+              {authorName && (
+                <span className="font-semibold text-gray-900">{authorName}</span>
+              )}
+              <time dateTime={article.publishedAt || article.createdAt}>
+                {publishDate}
+              </time>
+            </div>
           </div>
-        )}
-        <div className="text-sm">
-          <time dateTime={article.publishedAt || article.createdAt}>
-            {publishDate}
-          </time>
         </div>
-      </div>
 
-      {/* Social Share Buttons */}
-      <ArticleShareButtons 
-        title={article.title}
-        url={currentUrl}
-        className="pt-4 border-t border-gray-200"
-      />
+        <ArticleShareButtons 
+          title={article.title}
+          url={currentUrl}
+          className="flex-shrink-0"
+        />
+      </div>
     </header>
   );
 }
