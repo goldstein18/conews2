@@ -8,6 +8,7 @@
 import Link from 'next/link';
 import { NewsCategorySections, NewsHeader } from '@/app/news/components';
 import { usePublicNews } from '@/app/news/hooks';
+import { DEFAULT_IMAGE } from '@/lib/constants/images';
 import { useMemo, useState, useEffect, useRef } from 'react';
 
 export default function IndustryNewsPage() {
