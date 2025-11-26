@@ -15,6 +15,7 @@ import Link from 'next/link';
 interface NewsCategorySectionsProps {
   articles: NewsArticle[];
   featuredArticle?: NewsArticle;
+  selectedCategory?: string;
 }
 
 interface CategoryGroup {
@@ -26,7 +27,7 @@ interface CategoryGroup {
   articles: NewsArticle[];
 }
 
-export function NewsCategorySections({ articles, featuredArticle }: NewsCategorySectionsProps) {
+export function NewsCategorySections({ articles, featuredArticle, selectedCategory: _selectedCategory }: NewsCategorySectionsProps) {
   // Group articles by category
   const categoryGroups = articles.reduce((groups: CategoryGroup[], article) => {
     // Skip featured article from grouping
