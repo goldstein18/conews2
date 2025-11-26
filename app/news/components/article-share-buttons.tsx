@@ -5,7 +5,7 @@
 
 'use client';
 
-import { Facebook, Twitter, Mail, Share2, Link as LinkIcon, Copy } from 'lucide-react';
+import { Facebook, Twitter, Mail, Share2, Copy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
