@@ -100,6 +100,8 @@ export default function NewsPage() {
         <NewsHeader
           selectedCategory={selectedCategory}
           onCategoryChange={setSelectedCategory}
+          showIndustryButton={false}
+          viewMode="cultural"
         />
         <div className="container mx-auto px-3 sm:px-4 py-6 sm:py-8 md:py-12">
           <NewsSkeleton />
@@ -131,6 +133,8 @@ export default function NewsPage() {
         <NewsHeader
           selectedCategory={selectedCategory}
           onCategoryChange={setSelectedCategory}
+          showIndustryButton={false}
+          viewMode="cultural"
         />
         <div className="container mx-auto px-3 sm:px-4 py-6 sm:py-8">
           <div className="text-center py-16">
@@ -161,6 +165,8 @@ export default function NewsPage() {
       <NewsHeader
         selectedCategory={selectedCategory}
         onCategoryChange={setSelectedCategory}
+        showIndustryButton={false}
+        viewMode="cultural"
       />
 
       <div className="container mx-auto px-3 sm:px-4 py-6 sm:py-8 md:py-12">

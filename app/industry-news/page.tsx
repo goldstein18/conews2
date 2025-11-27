@@ -6,14 +6,28 @@
 'use client';
 
 import Link from 'next/link';
-import { NewsCategorySections, NewsHeader } from '@/app/news/components';
+import {
+  NewsCategorySections,
+  NewsHeader,
+  type NewsHeaderCategory
+} from '@/app/news/components';
 import { usePublicNews } from '@/app/news/hooks';
 import { DEFAULT_IMAGE } from '@/lib/constants/images';
 import { useMemo, useState, useEffect, useRef } from 'react';
+import { useRouter } from 'next/navigation';
+import {
+  INDUSTRY_NEWS_HEADER_CATEGORIES,
+  INDUSTRY_CATEGORY_TITLE_MAP
+} from './constants';
 
 export default function IndustryNewsPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const router = useRouter();
+  const handleCategoryChange = (categoryId: string) => {
+    setSelectedCategory(categoryId);
+    router.push(`/industry-news/category/${categoryId}`);
+  };
 
   const {
     news,
@@ -82,7 +96,9 @@ export default function IndustryNewsPage() {
       <div className="w-full">
         <NewsHeader
           selectedCategory={selectedCategory}
-          onCategoryChange={setSelectedCategory}
+          onCategoryChange={handleCategoryChange}
+          categories={INDUSTRY_NEWS_HEADER_CATEGORIES}
+          viewMode="industry"
         />
         <div className="container mx-auto px-3 sm:px-4 py-6 sm:py-8 md:py-12">
           <div className="h-96 animate-pulse bg-gray-100 rounded" />
@@ -106,7 +122,9 @@ export default function IndustryNewsPage() {
       <div className="w-full">
         <NewsHeader
           selectedCategory={selectedCategory}
-          onCategoryChange={setSelectedCategory}
+          onCategoryChange={handleCategoryChange}
+          categories={INDUSTRY_NEWS_HEADER_CATEGORIES}
+          viewMode="industry"
         />
         <div className="container mx-auto px-3 sm:px-4 py-6 sm:py-8">
           <div className="text-center py-16">
@@ -161,8 +179,10 @@ export default function IndustryNewsPage() {
     <div className="w-full">
       <NewsHeader
         selectedCategory={selectedCategory}
-        onCategoryChange={setSelectedCategory}
+        onCategoryChange={handleCategoryChange}
         showIndustryButton={false}
+        categories={INDUSTRY_NEWS_HEADER_CATEGORIES}
+        viewMode="industry"
       />
       <div className="bg-gray-50 py-12">
         <div className="container mx-auto px-3 sm:px-4">
@@ -186,7 +206,7 @@ export default function IndustryNewsPage() {
             {latestArticles.map((article) => (
               <Link
                 key={article.id}
-                href={`/news/${article.slug}`}
+                href="/iarticle"
                 className="group block overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-xl"
               >
                 <div
@@ -212,9 +232,6 @@ export default function IndustryNewsPage() {
                       year: 'numeric'
                     })}
                   </p>
-                  <div className="mt-4 text-sm font-semibold uppercase tracking-[0.3em] text-[#e74e3d]">
-                    Read more
-                  </div>
                 </div>
               </Link>
             ))}
@@ -229,6 +246,8 @@ export default function IndustryNewsPage() {
               articles={filteredNews}
               featuredArticle={featuredArticle}
               selectedCategory={selectedCategory}
+              categoryNameMap={INDUSTRY_CATEGORY_TITLE_MAP}
+              articleHref="/iarticle"
             />
           ) : !loading ? (
             <div className="text-center py-16">

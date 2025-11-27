@@ -16,6 +16,8 @@ interface NewsCategorySectionsProps {
   articles: NewsArticle[];
   featuredArticle?: NewsArticle;
   selectedCategory?: string;
+  categoryNameMap?: Record<string, string>;
+  articleHref?: string; // Optional href override for article links
 }
 
 interface CategoryGroup {
@@ -27,7 +29,31 @@ interface CategoryGroup {
   articles: NewsArticle[];
 }
 
-export function NewsCategorySections({ articles, featuredArticle, selectedCategory: _selectedCategory }: NewsCategorySectionsProps) {
+const resolveCategoryTitle = (
+  category: CategoryGroup['category'],
+  map?: Record<string, string>
+) => {
+  if (!map) return category.name;
+
+  const keys = [
+    category.slug,
+    category.slug?.toLowerCase(),
+    category.id,
+    category.id?.toLowerCase(),
+    category.name,
+    category.name?.toLowerCase()
+  ].filter(Boolean) as string[];
+
+  for (const key of keys) {
+    if (map[key]) {
+      return map[key];
+    }
+  }
+
+  return category.name;
+};
+
+export function NewsCategorySections({ articles, featuredArticle, selectedCategory: _selectedCategory, categoryNameMap, articleHref }: NewsCategorySectionsProps) {
   // Group articles by category
   const categoryGroups = articles.reduce((groups: CategoryGroup[], article) => {
     // Skip featured article from grouping
@@ -117,7 +143,7 @@ export function NewsCategorySections({ articles, featuredArticle, selectedCatego
       {/* Featured article hero section */}
       {featuredArticle && (
         <div>
-          <NewsHero article={featuredArticle} />
+          <NewsHero article={featuredArticle} href={articleHref} />
         </div>
       )}
 
@@ -132,7 +158,7 @@ export function NewsCategorySections({ articles, featuredArticle, selectedCatego
             {/* Category header with title and "More" button */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 border-b-2 border-gray-200 pb-3">
               <h2 className="typography-header text-2xl sm:text-3xl" style={{ color: '#3D98D3' }}>
-                {group.category.name}
+                {resolveCategoryTitle(group.category, categoryNameMap)}
               </h2>
               <Button
                 size="sm"
@@ -140,7 +166,7 @@ export function NewsCategorySections({ articles, featuredArticle, selectedCatego
                 className="gap-2 bg-[#3D98D3] hover:bg-[#2d7fb8] text-white uppercase flex justify-center tracking-[0.3em] w-full sm:w-auto shrink-0 typography-subheader"
               >
                 <Link href={`/news?category=${group.category.slug || group.category.id}`}>
-                  More {group.category.name}
+                  More {resolveCategoryTitle(group.category, categoryNameMap)}
                   <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
@@ -149,7 +175,7 @@ export function NewsCategorySections({ articles, featuredArticle, selectedCatego
             {/* Articles grid - 3 columns on desktop, 2 on tablet, 1 on mobile */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {group.articles.map((article) => (
-                <NewsCard key={article.id} article={article} />
+                <NewsCard key={article.id} article={article} href={articleHref} />
               ))}
             </div>
           </section>

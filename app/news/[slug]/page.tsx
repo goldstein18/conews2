@@ -128,8 +128,14 @@ export default function NewsArticlePage() {
             currentUrl={currentUrl}
           />
 
+          {/* Meta Placeholder */}
+          <div className="space-y-1 text-xs uppercase tracking-[0.35em] text-gray-500">
+            <p>Meta placeholder sentence one.</p>
+            <p>Meta placeholder sentence two.</p>
+          </div>
+
           {/* Hero Image */}
-          <div className="relative w-full aspect-[1200/628] overflow-hidden rounded-lg bg-gray-100 mt-6">
+          <div className="relative w-full aspect-[1200/628] overflow-hidden rounded-lg bg-gray-100 mt-2">
             <ImageWithFallback
               src={imageUrl}
               alt={displayArticle.heroImageAlt || displayArticle.title}

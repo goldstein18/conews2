@@ -16,16 +16,19 @@ import { DEFAULT_IMAGE } from '@/lib/constants/images';
 interface NewsCardProps {
   article: NewsArticle;
   featured?: boolean; // For featured articles (larger size)
+  href?: string; // Optional href override
 }
 
-export function NewsCard({ article, featured = false }: NewsCardProps) {
+export function NewsCard({ article, featured = false, href }: NewsCardProps) {
   const imageUrl = article.heroImageUrl || DEFAULT_IMAGE;
 
   // Get primary category
   const primaryCategory = article.categories?.[0];
 
+  const articleHref = href || `/news/${article.slug}`;
+
   return (
-    <Link href={`/news/${article.slug}`} className="block group">
+    <Link href={articleHref} className="block group">
       <Card className={`overflow-hidden transition-all duration-300 hover:shadow-xl border-gray-200 h-full ${
         featured ? 'md:col-span-2' : ''
       }`}>

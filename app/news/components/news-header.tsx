@@ -5,7 +5,7 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ChevronDown, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -16,6 +16,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { cn } from '@/lib/utils';
+import { useRouter } from 'next/navigation';
 
 export interface NewsHeaderCategory {
   id: string;
@@ -37,6 +38,13 @@ export const NEWS_HEADER_CATEGORIES: NewsHeaderCategory[] = [
   { id: 'city-guides', name: 'CITY GUIDES', slug: 'city-guides' },
 ];
 
+export type NewsViewMode = 'cultural' | 'industry';
+
+const NEWS_VIEW_OPTIONS: { id: NewsViewMode; label: string }[] = [
+  { id: 'cultural', label: 'Cultural News' },
+  { id: 'industry', label: 'Industry News' }
+];
+
 // Mock locations for now - can be replaced with real location data
 const LOCATIONS = [
   { id: 'greater-atlanta', name: 'GREATER ATLANTA', slug: 'greater-atlanta' },
@@ -52,6 +60,9 @@ interface NewsHeaderProps {
   onLocationChange?: (locationId: string) => void;
   showIndustryButton?: boolean;
   industryHref?: string;
+  categories?: NewsHeaderCategory[];
+  viewMode?: NewsViewMode;
+  onViewModeChange?: (mode: NewsViewMode) => void;
 }
 
 export function NewsHeader({
@@ -60,11 +71,22 @@ export function NewsHeader({
   selectedLocation = 'miami',
   onLocationChange,
   showIndustryButton = true,
-  industryHref = "/industry-news"
+  industryHref = "/industry-news",
+  categories = NEWS_HEADER_CATEGORIES,
+  viewMode,
+  onViewModeChange
 }: NewsHeaderProps) {
   const [currentLocation, setCurrentLocation] = useState(
     LOCATIONS.find(loc => loc.id === selectedLocation) || LOCATIONS[0]
   );
+  const [currentViewMode, setCurrentViewMode] = useState<NewsViewMode>(viewMode ?? 'cultural');
+  const router = useRouter();
+
+  useEffect(() => {
+    if (typeof viewMode !== 'undefined') {
+      setCurrentViewMode(viewMode);
+    }
+  }, [viewMode]);
 
   const handleLocationSelect = (location: typeof LOCATIONS[0]) => {
     setCurrentLocation(location);
@@ -75,11 +97,20 @@ export function NewsHeader({
     onCategoryChange?.(categoryId);
   };
 
+  const handleViewModeChange = (mode: NewsViewMode) => {
+    if (currentViewMode === mode) return;
+    setCurrentViewMode(mode);
+    onViewModeChange?.(mode);
+    const destination = mode === 'industry' ? '/industry-news' : '/news';
+    router.push(destination);
+  };
+
   return (
     <div className="w-full bg-white sticky top-0 z-40 border-b border-blue-200 shadow-sm">
       <div className="container mx-auto px-2 sm:px-4">
         <div className="flex flex-wrap items-center gap-2 sm:gap-4 py-2 sm:py-3 justify-between">
-          {/* Location Selector */}
+        {/* Location selector and view toggle */}
+        <div className="flex items-center gap-2">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
@@ -107,6 +138,34 @@ export function NewsHeader({
             </DropdownMenuContent>
           </DropdownMenu>
 
+          <div className="flex items-center gap-0.5 rounded-full bg-white border border-[#3d98d3]/50 p-0.5 shadow-inner">
+            {NEWS_VIEW_OPTIONS.map((option) => {
+              const isActive = currentViewMode === option.id;
+
+              return (
+                <button
+                  key={option.id}
+                  type="button"
+                  onClick={() => handleViewModeChange(option.id)}
+                  className={cn(
+                    'px-3 py-1 text-sm sm:text-sm tracking-[0.15em] rounded-full transition-colors font-normal typography-subheader',
+                    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#3d98d3]'
+                  )}
+                style={
+                  isActive
+                    ? option.id === 'industry'
+                      ? { backgroundColor: '#e74e3d', color: '#fff' }
+                      : { backgroundColor: '#3d98d3', color: '#fff' }
+                    : { backgroundColor: '#fff', color: '#0f172a', opacity: 0.85 }
+                }
+                >
+                  {option.label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
           {/* Industry News Button */}
           {showIndustryButton && (
             <Button
@@ -125,7 +184,7 @@ export function NewsHeader({
           {/* Category Navigation Links - Scrollable middle section */}
           <div className="flex-1 min-w-0 mx-2 order-last sm:order-none">
             <div className="flex items-center gap-3 sm:gap-6 pb-1 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-              {NEWS_HEADER_CATEGORIES.map((category) => {
+              {categories.map((category) => {
                 const isActive = selectedCategory === category.id;
 
                 return (
@@ -151,7 +210,7 @@ export function NewsHeader({
           {/* Events Button - Hidden on very small screens */}
           <Button
             variant="default"
-            className="bg-[#f05d7a] hover:bg-[#d1546d] text-white font-normal rounded-md px-2.5 sm:px-3 py-1 sm:py-1.5 whitespace-nowrap text-sm sm:text-sm shrink-0 inline-flex typography-subheader"
+            className="bg-[#3d98d3] hover:bg-[#3d98d3] text-white gap-1 font-normal rounded-md px-2.5 sm:px-3 py-1 sm:py-1.5 whitespace-nowrap text-sm sm:text-sm shrink-0 inline-flex typography-subheader"
             asChild
           >
             <Link href="/calendar/events" target="_blank" rel="noopener noreferrer">

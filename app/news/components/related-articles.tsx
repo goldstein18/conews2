@@ -65,7 +65,7 @@ export function RelatedArticles({
                       {article.categories[0].name}
                     </span>
                   )}
-                  <h3 className="text-lg font-semibold leading-tight group-hover:text-primary transition-colors font-titleAcumin">
+                  <h3 className="text-lg font-normal leading-tight group-hover:text-primary transition-colors font-titleAcumin">
                     {article.title}
                   </h3>
                 </div>
