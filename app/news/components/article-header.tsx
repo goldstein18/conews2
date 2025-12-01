@@ -28,7 +28,7 @@ export function ArticleHeader({ article, currentUrl, backHref = "/news" }: Artic
   return (
     <header className="space-y-4">
       <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
-        <div className="flex items-start gap-4">
+        <div className="flex items-start gap-4 flex-1">
           <Link
             href={backHref}
             className="text-gray-600 hover:text-gray-900 transition-colors pt-1"
@@ -36,7 +36,7 @@ export function ArticleHeader({ article, currentUrl, backHref = "/news" }: Artic
           >
             <ArrowLeft className="h-6 w-6" />
           </Link>
-          <div className="min-w-0 space-y-3">
+          <div className="min-w-0 space-y-3 flex-1">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight font-titleAcumin text-gray-900">
               {article.title}
             </h1>

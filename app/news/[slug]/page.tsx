@@ -7,6 +7,7 @@
 
 import { useQuery } from '@apollo/client';
 import { useParams } from 'next/navigation';
+import { format } from 'date-fns';
 import { GET_NEWS_BY_SLUG } from '@/lib/graphql/news';
 import { ImageWithFallback } from '@/components/ui/image-with-fallback';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -14,7 +15,7 @@ import { DEFAULT_IMAGE } from '@/lib/constants/images';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
-import { ArticleHeader } from '../components/article-header';
+import { ArticleShareButtons } from '../components/article-share-buttons';
 import { RelatedArticles } from '../components/related-articles';
 import { usePublicNews } from '../hooks/use-public-news';
 import { MOCK_NEWS_ARTICLES } from '../mock-news';
@@ -121,44 +122,77 @@ export default function NewsArticlePage() {
   return (
     <article className="min-h-screen bg-white">
       <div className="container mx-auto px-4 py-8 md:py-12">
-        <div className="max-w-4xl mx-auto space-y-6">
-          {/* Article Header (Title, Author, Date, Share Buttons) */}
-          <ArticleHeader 
-            article={displayArticle}
-            currentUrl={currentUrl}
-          />
+        <div className="max-w-4xl mx-auto">
+          <div className="flex gap-4">
+            {/* Back Arrow - Left side */}
+            <Link
+              href="/news"
+              className="text-gray-600 hover:text-gray-900 transition-colors pt-1 flex-shrink-0"
+              aria-label="Back to news"
+            >
+              <ArrowLeft className="h-6 w-6" />
+            </Link>
 
-          {/* Meta Placeholder */}
-          <div className="space-y-1 text-xs uppercase tracking-[0.35em] text-gray-500">
-            <p>Meta placeholder sentence one.</p>
-            <p>Meta placeholder sentence two.</p>
+            {/* Content Column - Aligned with image */}
+            <div className="flex-1 space-y-6">
+              {/* Article Header (Title, Author, Date, Share Buttons) */}
+              <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+                <div className="flex-1 space-y-3">
+                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight font-titleAcumin text-gray-900">
+                    {displayArticle.title}
+                  </h1>
+                  <div className="flex flex-wrap items-center gap-4 text-gray-600 text-sm">
+                    {(displayArticle.authorName || 'Time Out Contributor') && (
+                      <span className="font-semibold text-gray-900">{displayArticle.authorName || 'Time Out Contributor'}</span>
+                    )}
+                    <time dateTime={displayArticle.publishedAt || displayArticle.createdAt}>
+                      {displayArticle.publishedAt 
+                        ? format(new Date(displayArticle.publishedAt), 'MMMM d, yyyy')
+                        : format(new Date(displayArticle.createdAt), 'MMMM d, yyyy')}
+                    </time>
+                  </div>
+                </div>
+
+                <ArticleShareButtons 
+                  title={displayArticle.title}
+                  url={currentUrl}
+                  className="flex-shrink-0"
+                />
+              </div>
+
+              {/* Meta Placeholder - Above image */}
+              <div className="space-y-1 uppercase tracking-[0.35em] text-black font-semibold" style={{ fontSize: '1.25rem' }}>
+                <p>Meta placeholder sentence one.</p>
+                <p>Meta placeholder sentence two.</p>
+              </div>
+
+              {/* Hero Image */}
+              <div className="relative w-full aspect-[1200/628] overflow-hidden rounded-lg bg-gray-100">
+                <ImageWithFallback
+                  src={imageUrl}
+                  alt={displayArticle.heroImageAlt || displayArticle.title}
+                  fill
+                  className="object-cover"
+                  sizes="100vw"
+                  priority
+                />
+              </div>
+
+              {/* Article Content */}
+              <div 
+                className="article-content mt-8"
+                dangerouslySetInnerHTML={{ __html: displayArticle.body }}
+              />
+
+              {/* Related Articles */}
+              {(allNews.length > 0 || MOCK_NEWS_ARTICLES.length > 0) && (
+                <RelatedArticles
+                  articles={allNews.length > 0 ? allNews : MOCK_NEWS_ARTICLES}
+                  currentArticleId={displayArticle.id}
+                />
+              )}
+            </div>
           </div>
-
-          {/* Hero Image */}
-          <div className="relative w-full aspect-[1200/628] overflow-hidden rounded-lg bg-gray-100 mt-2">
-            <ImageWithFallback
-              src={imageUrl}
-              alt={displayArticle.heroImageAlt || displayArticle.title}
-              fill
-              className="object-cover"
-              sizes="100vw"
-              priority
-            />
-          </div>
-
-          {/* Article Content */}
-          <div 
-            className="article-content mt-8"
-            dangerouslySetInnerHTML={{ __html: displayArticle.body }}
-          />
-
-          {/* Related Articles */}
-          {(allNews.length > 0 || MOCK_NEWS_ARTICLES.length > 0) && (
-            <RelatedArticles
-              articles={allNews.length > 0 ? allNews : MOCK_NEWS_ARTICLES}
-              currentArticleId={displayArticle.id}
-            />
-          )}
         </div>
       </div>
     </article>
