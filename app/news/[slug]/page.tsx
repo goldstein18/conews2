@@ -161,7 +161,7 @@ export default function NewsArticlePage() {
               </div>
 
               {/* Meta Placeholder - Above image */}
-              <div className="space-y-1 uppercase tracking-[0.35em] text-black font-semibold" style={{ fontSize: '1.25rem' }}>
+              <div className="space-y-1 tracking-[0.35em] text-black font-semibold" style={{ fontSize: '1.25rem' }}>
                 <p>Meta placeholder sentence one.</p>
                 <p>Meta placeholder sentence two.</p>
               </div>
