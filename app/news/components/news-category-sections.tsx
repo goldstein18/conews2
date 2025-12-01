@@ -156,7 +156,15 @@ export function NewsCategorySections({ articles, featuredArticle, selectedCatego
           <section key={group.category.id} id={categoryId} className="space-y-4 sm:space-y-6 scroll-mt-24">
             {/* Category header with title and "More" button */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 border-b-2 border-gray-200 pb-3">
-              <h2 className="font-titleAcumin text-2xl sm:text-3xl" style={{ color: '#3D98D3' }}>
+              <h2 className="uppercase" style={{ 
+                fontFamily: 'acumin-pro-condensed, sans-serif',
+                fontStyle: 'normal',
+                fontWeight: 800,
+                fontSize: '60px',
+                letterSpacing: 'normal',
+                lineHeight: 1,
+                color: '#3D98D3'
+              }}>
                 {resolveCategoryTitle(group.category, categoryNameMap)}
               </h2>
               <Button
