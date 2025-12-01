@@ -189,8 +189,8 @@ export default function IndustryNewsPage() {
         <div className="container mx-auto px-3 sm:px-4">
           <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
             <div>
-              <h2 className="text-2xl md:text-3xl font-semibold tracking-[0.15em] text-black font-titleAcumin">
-                LATEST ARTICLES
+              <h2 className="text-3xl md:text-4xl font-semibold tracking-[0.15em] text-black font-titleAcumin">
+                Latest Articles
               </h2>
               <p className="text-sm text-gray-500 mt-1">
                 Stay up-to-date with the newest content across all our categories.
