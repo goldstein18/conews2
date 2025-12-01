@@ -6,7 +6,6 @@
 'use client';
 
 import Link from 'next/link';
-import { Tag } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ImageWithFallback } from '@/components/ui/image-with-fallback';
@@ -43,26 +42,16 @@ export function NewsCard({ article, featured = false }: NewsCardProps) {
             sizes={featured ? "(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 1200px" : "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"}
             priority={featured}
           />
-
-          {/* Category badge overlay */}
-          {primaryCategory && (
-            <div className="absolute top-4 left-4 z-10">
-              <Badge variant="secondary" className="bg-black/70 text-white hover:bg-black/80">
-                <Tag className="h-3 w-3 mr-1" />
-                {primaryCategory.name}
-              </Badge>
-            </div>
-          )}
         </div>
 
         {/* Card content */}
         <CardContent className="p-6 space-y-3">
           {/* Title */}
-          <h3 className={`font-normal line-clamp-2 group-hover:text-primary transition-colors font-titleAcumin ${
+          <h2 className={`line-clamp-2 group-hover:text-primary transition-colors font-titleAcumin ${
             featured ? 'text-2xl' : 'text-xl'
-          }`}>
+          }`} style={{ fontWeight: 300, opacity: 0.85 }}>
             {article.title}
-          </h3>
+          </h2>
 
           {/* Summary/excerpt from body */}
           {article.body && (
@@ -71,11 +60,18 @@ export function NewsCard({ article, featured = false }: NewsCardProps) {
             </p>
           )}
 
-          {/* Tags */}
-          {article.tags && article.tags.length > 0 && (
+          {/* Tags - including category and article tags */}
+          {(primaryCategory || (article.tags && article.tags.length > 0)) && (
             <div className="flex items-center gap-2 flex-wrap pt-2">
-              {article.tags.slice(0, 3).map((tag) => (
-                <Badge key={tag.id} variant="outline" className="text-xs">
+              {/* Category tag */}
+              {primaryCategory && (
+                <Badge variant="outline" className="text-[10px]">
+                  {primaryCategory.name}
+                </Badge>
+              )}
+              {/* Article tags */}
+              {article.tags && article.tags.slice(0, 3).map((tag) => (
+                <Badge key={tag.id} variant="outline" className="text-[10px]">
                   {tag.display || tag.name}
                 </Badge>
               ))}
