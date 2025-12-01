@@ -4,16 +4,14 @@ import Link from 'next/link';
 import { ChevronRight, Clock, ArrowUp, Share2 } from 'lucide-react';
 import { NewsHeader } from '@/app/news/components';
 import { useState, useEffect } from 'react';
-import { INDUSTRY_NEWS_HEADER_CATEGORIES } from '@/app/industry-news/constants';
 
 export default function IArticlePage() {
   return (
     <div className="min-h-screen bg-white">
       {/* News Header with Toggle */}
       <NewsHeader
-        viewMode="industry"
+        viewMode="cultural"
         showIndustryButton={false}
-        categories={INDUSTRY_NEWS_HEADER_CATEGORIES}
       />
 
       {/* Breadcrumb Navigation */}

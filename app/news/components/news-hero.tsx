@@ -15,10 +15,9 @@ import { DEFAULT_IMAGE } from '@/lib/constants/images';
 
 interface NewsHeroProps {
   article: NewsArticle;
-  href?: string; // Optional href override
 }
 
-export function NewsHero({ article, href }: NewsHeroProps) {
+export function NewsHero({ article }: NewsHeroProps) {
   const imageUrl = article.heroImageUrl || DEFAULT_IMAGE;
 
   // Get primary category
@@ -29,10 +28,8 @@ export function NewsHero({ article, href }: NewsHeroProps) {
     ? article.body.replace(/<[^>]*>/g, '').substring(0, 200)
     : '';
 
-  const articleHref = href || `/news/${article.slug}`;
-
   return (
-    <Link href={articleHref} className="block group">
+    <Link href={`/news/${article.slug}`} className="block group">
       <div className="relative w-full aspect-[1200/628] overflow-hidden rounded-lg bg-gray-100">
         <ImageWithFallback
           src={imageUrl}
@@ -73,7 +70,7 @@ export function NewsHero({ article, href }: NewsHeroProps) {
             <div className="pt-4">
               <Button 
                 variant="default" 
-                className="bg-[#3D98D3] hover:bg-[#2d7fb8] text-white uppercase tracking-[0.3em] transition-colors gap-2 typography-subheader"
+                className="bg-[#3D98D3] hover:bg-[#2d7fb8] text-white uppercase tracking-[0.3em] transition-colors gap-2 typography-subheader text-sm"
               >
                 Read More
                 <ArrowRight className="ml-2 h-4 w-4" />

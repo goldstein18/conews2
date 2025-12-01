@@ -115,7 +115,7 @@ export function NewsHeader({
             <DropdownMenuTrigger asChild>
               <Button
                 variant="default"
-                className="bg-[#3d98d3] hover:bg-[#2b85ba] text-white font-normal rounded-md px-2.5 sm:px-3 py-1 sm:py-1.5 whitespace-nowrap text-sm sm:text-sm shrink-0 border-0 typography-subheader"
+                className="bg-[#3d98d3] hover:bg-[#2b85ba] text-white font-normal rounded-md px-2.5 sm:px-3 py-1 h-auto whitespace-nowrap text-sm sm:text-sm shrink-0 border-0 typography-subheader"
               >
                 <span className="hidden sm:inline">{currentLocation.name}</span>
                 <span className="sm:hidden">{currentLocation.name.split(' ')[0]}</span>
@@ -128,7 +128,7 @@ export function NewsHeader({
                   key={location.id}
                   onClick={() => handleLocationSelect(location)}
                   className={cn(
-                    'cursor-pointer',
+                    'cursor-pointer typography-subheader',
                     currentLocation.id === location.id && 'bg-blue-50 font-semibold'
                   )}
                 >
@@ -183,7 +183,7 @@ export function NewsHeader({
 
           {/* Category Navigation Links - Scrollable middle section */}
           <div className="flex-1 min-w-0 mx-2 order-last sm:order-none">
-            <div className="flex items-center gap-3 sm:gap-6 pb-1 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+            <div className="flex items-center gap-3 sm:gap-6 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
               {categories.map((category) => {
                 const isActive = selectedCategory === category.id;
 
@@ -192,14 +192,14 @@ export function NewsHeader({
                     key={category.id}
                     onClick={() => handleCategoryClick(category.id)}
                     className={cn(
-                      'text-sm font-normal text-gray-700 hover:text-gray-900 transition-colors whitespace-nowrap relative pb-1 shrink-0 typography-subheader',
+                      'text-sm font-normal text-gray-700 hover:text-gray-900 transition-colors whitespace-nowrap relative shrink-0 typography-subheader flex items-center py-1 sm:py-1.5',
                       isActive && 'text-blue-600'
                     )}
                   >
                     {category.name}
                     {/* Active indicator underline */}
                     {isActive && (
-                      <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600 -mb-0.5 z-10" />
+                      <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600" />
                     )}
                   </button>
                 );
@@ -210,7 +210,7 @@ export function NewsHeader({
           {/* Events Button - Hidden on very small screens */}
           <Button
             variant="default"
-            className="bg-[#3d98d3] hover:bg-[#3d98d3] text-white gap-1 font-normal rounded-md px-2.5 sm:px-3 py-1 sm:py-1.5 whitespace-nowrap text-sm sm:text-sm shrink-0 inline-flex typography-subheader"
+            className="bg-[#3d98d3] hover:bg-[#3d98d3] text-white gap-1 font-normal rounded-md px-2.5 sm:px-3 py-1 h-auto whitespace-nowrap text-sm sm:text-sm shrink-0 inline-flex typography-subheader"
             asChild
           >
             <Link href="/calendar/events" target="_blank" rel="noopener noreferrer">

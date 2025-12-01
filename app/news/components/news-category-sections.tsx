@@ -17,7 +17,6 @@ interface NewsCategorySectionsProps {
   featuredArticle?: NewsArticle;
   selectedCategory?: string;
   categoryNameMap?: Record<string, string>;
-  articleHref?: string; // Optional href override for article links
 }
 
 interface CategoryGroup {
@@ -53,7 +52,7 @@ const resolveCategoryTitle = (
   return category.name;
 };
 
-export function NewsCategorySections({ articles, featuredArticle, selectedCategory: _selectedCategory, categoryNameMap, articleHref }: NewsCategorySectionsProps) {
+export function NewsCategorySections({ articles, featuredArticle, selectedCategory: _selectedCategory, categoryNameMap }: NewsCategorySectionsProps) {
   // Group articles by category
   const categoryGroups = articles.reduce((groups: CategoryGroup[], article) => {
     // Skip featured article from grouping
@@ -143,7 +142,7 @@ export function NewsCategorySections({ articles, featuredArticle, selectedCatego
       {/* Featured article hero section */}
       {featuredArticle && (
         <div>
-          <NewsHero article={featuredArticle} href={articleHref} />
+          <NewsHero article={featuredArticle} />
         </div>
       )}
 
@@ -163,7 +162,7 @@ export function NewsCategorySections({ articles, featuredArticle, selectedCatego
               <Button
                 size="sm"
                 asChild
-                className="gap-2 bg-[#3D98D3] hover:bg-[#2d7fb8] text-white uppercase flex justify-center tracking-[0.3em] w-full sm:w-auto shrink-0 typography-subheader"
+                className="gap-2 bg-[#3D98D3] hover:bg-[#2d7fb8] text-white uppercase flex justify-center tracking-[0.3em] w-full sm:w-auto shrink-0 typography-subheader text-sm"
               >
                 <Link href={`/news?category=${group.category.slug || group.category.id}`}>
                   More {resolveCategoryTitle(group.category, categoryNameMap)}
@@ -175,7 +174,7 @@ export function NewsCategorySections({ articles, featuredArticle, selectedCatego
             {/* Articles grid - 3 columns on desktop, 2 on tablet, 1 on mobile */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {group.articles.map((article) => (
-                <NewsCard key={article.id} article={article} href={articleHref} />
+                <NewsCard key={article.id} article={article} />
               ))}
             </div>
           </section>

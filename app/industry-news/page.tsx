@@ -206,7 +206,7 @@ export default function IndustryNewsPage() {
             {latestArticles.map((article) => (
               <Link
                 key={article.id}
-                href="/iarticle"
+                href={`/news/${article.slug}`}
                 className="group block overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-xl"
               >
                 <div
@@ -247,7 +247,6 @@ export default function IndustryNewsPage() {
               featuredArticle={featuredArticle}
               selectedCategory={selectedCategory}
               categoryNameMap={INDUSTRY_CATEGORY_TITLE_MAP}
-              articleHref="/iarticle"
             />
           ) : !loading ? (
             <div className="text-center py-16">
