@@ -47,9 +47,9 @@ export function NewsCard({ article, featured = false }: NewsCardProps) {
         {/* Card content */}
         <CardContent className="p-6 space-y-3">
           {/* Title */}
-          <h2 className={`line-clamp-2 group-hover:text-primary transition-colors font-titleAcumin ${
+          <h2 className={`line-clamp-2 group-hover:text-primary transition-colors font-titleAcumin font-normal text-gray-900 ${
             featured ? 'text-2xl' : 'text-xl'
-          }`} style={{ fontWeight: 300, opacity: 0.85 }}>
+          }`} style={{ opacity: 0.9 }}>
             {article.title}
           </h2>
 

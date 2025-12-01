@@ -6,6 +6,7 @@
 'use client';
 
 import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 import {
   NewsCategorySections,
   NewsHeader,
@@ -188,7 +189,7 @@ export default function IndustryNewsPage() {
         <div className="container mx-auto px-3 sm:px-4">
           <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
             <div>
-              <h2 className="text-2xl md:text-3xl font-semibold tracking-[0.15em] text-black typography-header">
+              <h2 className="text-2xl md:text-3xl font-semibold tracking-[0.15em] text-black font-titleAcumin">
                 LATEST ARTICLES
               </h2>
               <p className="text-sm text-gray-500 mt-1">
@@ -197,9 +198,10 @@ export default function IndustryNewsPage() {
             </div>
             <Link
               href="/news"
-              className="inline-flex items-center rounded-full border border-blue-500 px-4 py-1 text-sm font-semibold tracking-widest text-blue-500 hover:bg-blue-500 hover:text-white transition-colors"
+              className="inline-flex items-center gap-2 bg-[#3d98d3] hover:bg-[#2d7fb8] text-white rounded-md px-4 py-2 text-sm tracking-widest uppercase typography-subheader shadow-sm transition-colors"
             >
-              View all
+              VIEW ALL
+              <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -222,7 +224,7 @@ export default function IndustryNewsPage() {
                   >
                     {article.categories?.[0]?.name || 'Industry News'}
                   </div>
-                  <h3 className="text-lg font-semibold leading-tight text-gray-900">
+                  <h3 className="text-lg font-normal leading-tight text-gray-900 font-titleAcumin" style={{ opacity: 0.9 }}>
                     {article.title}
                   </h3>
                   <p className="mt-2 text-xs uppercase text-gray-500">

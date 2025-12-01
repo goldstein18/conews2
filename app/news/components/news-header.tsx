@@ -210,12 +210,12 @@ export function NewsHeader({
           {/* Events Button - Hidden on very small screens */}
           <Button
             variant="default"
-            className="bg-[#3d98d3] hover:bg-[#3d98d3] text-white gap-1 font-normal rounded-md px-2.5 sm:px-3 py-1 h-auto whitespace-nowrap text-sm sm:text-sm shrink-0 inline-flex typography-subheader"
+            className="bg-[#3d98d3] hover:bg-[#3d98d3] text-white gap-1 font-normal rounded-md px-2.5 sm:px-3 py-1 h-auto whitespace-nowrap text-sm sm:text-sm shrink-0 inline-flex items-center justify-center typography-subheader"
             asChild
           >
-            <Link href="/calendar/events" target="_blank" rel="noopener noreferrer">
+            <Link href="/calendar/events" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1">
               EVENTS
-              <ExternalLink className="ml-1 sm:ml-2 h-3 w-3 sm:h-4 sm:w-4" />
+              <ExternalLink className="!h-[0.80rem] !w-[0.80rem]" />
             </Link>
           </Button>
         </div>
