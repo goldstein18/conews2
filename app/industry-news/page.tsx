@@ -189,7 +189,15 @@ export default function IndustryNewsPage() {
         <div className="container mx-auto px-3 sm:px-4">
           <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
             <div>
-              <h2 className="text-3xl md:text-4xl font-semibold tracking-[0.15em] text-black font-titleAcumin">
+              <h2 className="uppercase" style={{ 
+                fontFamily: 'acumin-pro-condensed, sans-serif',
+                fontStyle: 'normal',
+                fontWeight: 800,
+                fontSize: '60px',
+                letterSpacing: 'normal',
+                lineHeight: 1,
+                color: 'rgba(45, 127, 184, var(--tw-bg-opacity, 1))'
+              }}>
                 Latest Articles
               </h2>
               <p className="text-sm text-gray-500 mt-1">
