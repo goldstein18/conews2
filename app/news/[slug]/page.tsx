@@ -143,7 +143,9 @@ export default function NewsArticlePage() {
                   </h1>
                   <div className="flex flex-wrap items-center gap-4 text-gray-600 text-sm">
                     {(displayArticle.authorName || 'Time Out Contributor') && (
-                      <span className="font-semibold text-gray-900">{displayArticle.authorName || 'Time Out Contributor'}</span>
+                      <span className="font-semibold text-gray-900">
+                        By {displayArticle.authorName || 'Time Out Contributor'}
+                      </span>
                     )}
                     <time dateTime={displayArticle.publishedAt || displayArticle.createdAt}>
                       {displayArticle.publishedAt 
