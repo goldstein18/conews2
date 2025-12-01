@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Anton, Roboto } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -25,6 +26,12 @@ const roboto = Roboto({
   variable: "--font-roboto"
 });
 
+const mistrully = localFont({
+  src: "../Mistrully_Font_Family_(Fontmirror)/Mistrully 400.ttf",
+  variable: "--font-mistrully",
+  weight: "400",
+});
+
 export const metadata: Metadata = {
   title: "CultureOwl - Discover Arts and Culture",
   description: "Explore arts and culture events, venues, dining, and news in your city",
@@ -41,7 +48,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} ${anton.variable} ${roboto.variable}`}>
+      <body className={`${inter.className} ${anton.variable} ${roboto.variable} ${mistrully.variable}`}>
         <ErrorBoundary>
           <ApolloWrapper>
             <LogoutOverlay />

@@ -75,6 +75,11 @@
   font-family: var(--font-anton), sans-serif !important;
 }
 
+/* Mistrully Font Classes */
+.font-mistrully {
+  font-family: var(--font-mistrully), sans-serif !important;
+}
+
 /* Article Content Styling */
 .article-content {
   @apply text-gray-900 leading-relaxed;
